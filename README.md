@@ -50,7 +50,7 @@ python manage.py db upgrade
 python manage.py runserver
 ~~~
 
-SET UP DEVELOPMENT ENVIRONMENT
+DEVELOPMENT WORKFLOW
 ------------------------------
 - Activate virtual environment
 ~~~
