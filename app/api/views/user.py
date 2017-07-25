@@ -6,14 +6,22 @@ from sqlalchemy import exc
 
 from app import db
 from app.api.models.user import User
+from app.api.utils import authenticate, is_admin
 
 
 user_blueprint = Blueprint('users', __name__)
 
 
 @user_blueprint.route('/users', methods=['POST'])
-def add_user():
+@authenticate
+def add_user(resp):
     """Create a new user"""
+    if not is_admin(resp):
+        response_object = {
+            'status': 'error',
+            'message': 'You do not have permission to do that.'
+        }
+        return jsonify(response_object), 401
     post_data = request.get_json()
     if not post_data:
         response_object = {
